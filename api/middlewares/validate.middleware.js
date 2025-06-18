@@ -4,12 +4,6 @@ const { ZodError } = require('zod');
 const validate = (schema) => async (req, res, next) => {
     try {
 
-        // --- INICIO DE CÓDIGO DE DEPURACIÓN ---
-        console.log('--- INICIANDO VALIDACIÓN DE RUTA ---');
-        console.log('Cabeceras recibidas:', req.headers);
-        console.log('Cuerpo (req.body) recibido:', req.body);
-        // --- FIN DE CÓDIGO DE DEPURACIÓN ---
-
         // Zod parseará y validará. Si el esquema define transformaciones, se aplicarán.
         const parsed = await schema.safeParseAsync({
             body: req.body,
