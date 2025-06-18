@@ -1,0 +1,34 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// --- Modelo de Usuario para Autenticación ---
+model User {
+  id        Int      @id @default(autoincrement())
+  run       String   @unique
+  email     String   @unique
+  firstName String
+  lastName  String
+  status    Boolean  @default(true)
+  // El rol por defecto ahora es USER
+  role      Role     @default(USER)
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("users")
+}
+
+// Roles simplificados a solo dos opciones
+enum Role {
+  ADMIN
+  USER
+}
